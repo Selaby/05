@@ -15,36 +15,55 @@
         <h1>POS-SYSTEM</h1>
 
         <p>商品コードを入力してください。</p>
-        <input type="text" id="code" placeholder="商品コードを入力">
+        <input type="text" id="order_code" placeholder="商品コードを入力">
         <BR><BR>
         <p>個数を入力してください。</p>
-        <input type="text" id="qty" placeholder="個数を入力">
-        <input type="submit" id="submit" value="登録">
+        <input type="text" id="order_qty" placeholder="個数を入力">
+        <input type="submit" id="register" value="登録">
 
-        <BR><BR><BR>
+        <BR><BR>
+        <p>登録商品</p>
+        <textarea id="process" class="process_area" cols="50" rows="10"></textarea>
 
-        <p>登録商品リスト</p>
-        <textarea id="result" class="result_area" cols="50" rows="10"></textarea>
+        <p>買い物カゴ</p>
+        <textarea id="item_order_list" class="result_area" cols="50" rows="10"></textarea>
 
         <p>合計金額</p>
-        <textarea id="result" class="result_area" cols="50" rows="1"></textarea>
+        <textarea id="sum" class="sum_area" cols="50" rows="1"></textarea>
 
         <p>お預り金額</p>
-        <textarea id="result" class="result_area" cols="50" rows="1"></textarea>
+        <input type="text" id="deposit" placeholder="お預り金額を入力">
+        <BR><BR>
 
         <p>お釣り</p>
-        <textarea id="result" class="result_area" cols="50" rows="1"></textarea>
+        <textarea id="change" class="result_area" cols="50" rows="1"></textarea>
 
         <script type="text/javascript" src="./eel.js"></script>
         <script>
-            pos-system.addEventListener('click', () => {
-                eel.pos-system(word.value,csvfile.value)
+            pos_system.addEventListener('click', () => {
+                eel.pos_system(order_code,order_qty)
             })
 
-            eel.expose(output)
-            function output(text){
-                result.value += text + "\n"
+            eel.expose(register)
+            function register(text){
+                process.value += text + "\n"
             }
+
+            eel.expose(item_order_list)
+            function item_order_list(text){
+                item_order_list.value += text + "\n"
+            }
+
+            eel.expose(sum)
+            function sum(text){
+                sum.value += text + "\n"
+            }
+
+            eel.expose(change)
+            function change(text){
+                change.value += text + "\n"
+            }
+
         </script>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

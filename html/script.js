@@ -1,7 +1,24 @@
+// moji_done.addEventListener("click", ()=> {
+//     eel.moji(moji_moto.value);
+// })
+
+// eel.expose(view_moji_result)
+// function view_moji_result(text) {
+//     moji_result.value = text;
+// }
+
+// suji_done.addEventListener("click", ()=> {
+//     eel.suji(suji_moto.value);
+// })
+
+// eel.expose(view_suji_result)
+// function view_suji_result(text) {
+//     suji_result.value = text;
+// }
+
 register.addEventListener("click", ()=> {
     if (order_code.value !== "" && order_qty.value !== "") {
         eel.input_order(order_code.value, order_qty.value);
-        alert("登録しました");
     } else {
         alert("商品コードおよび個数の入力は必須です");
     }
@@ -9,7 +26,7 @@ register.addEventListener("click", ()=> {
 
 eel.expose(view_item_list)
 function view_item_list(text) {
-    item_order_list = text;
+    item_order_list.value = text;
 }
 
 // pos_system.addEventListener('click', () => {

@@ -1,8 +1,8 @@
 import datetime
 import pandas as pd
 
-ITEM_MASTER_CSV_PATH="./master.csv" # カレントディレクトリの状態に要注意 ずれているとFileNotFoundErrorが出る
-RECEIPT_FOLDER="./receipt"
+# ITEM_MASTER_CSV_PATH="./master.csv" # カレントディレクトリの状態に要注意 ずれているとFileNotFoundErrorが出る
+# RECEIPT_FOLDER="./receipt"
 
 ### 商品クラス
 class Item:
@@ -21,7 +21,7 @@ class Order:
         self.item_master = item_master
         self.item_order_list = {}
         self.set_datetime() # これがないと動かない
-
+    
     def set_datetime(self):
         self.datetime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
         self.receipt_name = f"receipt_{self.datetime}.log"
@@ -48,21 +48,21 @@ class Order:
     #             print("商品登録を終了します\n")
     #             break
 
-    # 課題4 辞書型にしたオーダーリストからkeyをもとに抽出
-    def view_item_list(self):
-        self.sum = 0
-        self.write_receipt("-----商品登録リスト-----")
-        for key in self.item_order_list.keys():
-            for m in self.item_master:
-                if key == m.item_code:
-                    value = self.item_order_list[key]
-                    self.sum += m.price * int(value)
-                    self.write_receipt(f"商品コード:{key}")
-                    self.write_receipt(f"商品名:{m.item_name}")
-                    self.write_receipt(f"価格:{m.price:,}")
-                    self.write_receipt(f"個数:{value:,}")
-                    self.write_receipt(f"小計:{m.price * int(value):,}\n")
-        self.write_receipt(f"合計:{self.sum:,}\n-----商品登録リスト終了-----\n")
+    # script.jsの方で動作させる
+    # def view_item_list(self):
+    #     self.sum = 0
+    #     self.write_receipt("-----商品登録リスト-----")
+    #     for key in self.item_order_list.keys():
+    #         for m in self.item_master:
+    #             if key == m.item_code:
+    #                 value = self.item_order_list[key]
+    #                 self.sum += m.price * int(value)
+    #                 self.write_receipt(f"商品コード:{key}")
+    #                 self.write_receipt(f"商品名:{m.item_name}")
+    #                 self.write_receipt(f"価格:{m.price:,}")
+    #                 self.write_receipt(f"個数:{value:,}")
+    #                 self.write_receipt(f"小計:{m.price * int(value):,}\n")
+    #     self.write_receipt(f"合計:{self.sum:,}\n-----商品登録リスト終了-----\n")
 
     # 課題6 預り金額を入力し、お釣りを計算する
     def payment(self):
@@ -84,20 +84,20 @@ def register_by_csv(csv_path):
     return item_master
 
 ### メイン処理
-def main():
+# def main():
     # 課題3 csvから商品マスタを登録する
-    item_master = register_by_csv(ITEM_MASTER_CSV_PATH)
+    # item_master = register_by_csv(ITEM_MASTER_CSV_PATH)
     # item_master = pd.read_csv("./master.csv", encoding="utf-8")
 
     # オーダー登録
-    order=Order(item_master)
-    order.input_order()
+    # order = Order(item_master)
+    # order.input_order()
 
     # オーダー表示
-    order.view_item_list()
+    # order.view_item_list()
 
     # 会計
-    order.payment()
+    # order.payment()
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

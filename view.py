@@ -4,7 +4,6 @@ import pandas as pd
 import pos_system
 
 ITEM_MASTER_CSV_PATH="./master.csv" # カレントディレクトリの状態に要注意 ずれているとFileNotFoundErrorが出る
-RECEIPT_FOLDER="./receipt"
 
 app_name="html"
 end_point="index.html"
@@ -44,7 +43,9 @@ def input_order(order_code:str, order_qty:str):
         order.item_order_list[order_code] = int(order_qty)
     else:
         order.item_order_list[order_code] += int(order_qty)
-    eel.view_item_list(order.item_order_list)
+    # print(order.item_order_list)
+    text = order.view_sum()
+    eel.view_sum(text)
  
 if __name__ == "__main__":
     main()

@@ -24,9 +24,9 @@ register.addEventListener("click", ()=> {
     }
 })
 
-eel.expose(view_item_list)
-function view_item_list(text) {
-    item_order_list.value = text;
+eel.expose(view_sum)
+function view_sum(text) {
+    sum.value = text;
 }
 
 // pos_system.addEventListener('click', () => {

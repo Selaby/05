@@ -2,7 +2,7 @@ import datetime
 import pandas as pd
 
 # ITEM_MASTER_CSV_PATH="./master.csv" # カレントディレクトリの状態に要注意 ずれているとFileNotFoundErrorが出る
-# RECEIPT_FOLDER="./receipt"
+RECEIPT_FOLDER="./receipt"
 
 ### 商品クラス
 class Item:
@@ -28,7 +28,7 @@ class Order:
 
     # 課題7 日付時刻をファイル名としたテキストファイルに出力し、Print関数も同時に動作させる
     def write_receipt(self,text):
-        print(text)
+        # print(text)
         with open(RECEIPT_FOLDER + "\\" + self.receipt_name, mode="a", encoding="utf-8_sig") as f:
             f.write(text+"\n")
 
@@ -48,21 +48,33 @@ class Order:
     #             print("商品登録を終了します\n")
     #             break
 
-    # script.jsの方で動作させる
-    # def view_item_list(self):
-    #     self.sum = 0
-    #     self.write_receipt("-----商品登録リスト-----")
-    #     for key in self.item_order_list.keys():
-    #         for m in self.item_master:
-    #             if key == m.item_code:
-    #                 value = self.item_order_list[key]
-    #                 self.sum += m.price * int(value)
-    #                 self.write_receipt(f"商品コード:{key}")
-    #                 self.write_receipt(f"商品名:{m.item_name}")
-    #                 self.write_receipt(f"価格:{m.price:,}")
-    #                 self.write_receipt(f"個数:{value:,}")
-    #                 self.write_receipt(f"小計:{m.price * int(value):,}\n")
-    #     self.write_receipt(f"合計:{self.sum:,}\n-----商品登録リスト終了-----\n")
+    # 買い物カゴの情報を表示
+    def view_cart(self):
+        self.sum = 0
+        self.write_receipt("-----商品登録リスト-----")
+        for key in self.item_order_list.keys():
+            for m in self.item_master:
+                if key == m.item_code:
+                    value = self.item_order_list[key]
+                    self.sum += m.price * int(value)
+                    self.write_receipt(f"商品コード:{key}")
+                    self.write_receipt(f"商品名:{m.item_name}")
+                    self.write_receipt(f"価格:{m.price:,}")
+                    self.write_receipt(f"個数:{value:,}")
+                    self.write_receipt(f"小計:{m.price * int(value):,}\n")
+        self.write_receipt(f"合計:{self.sum:,}\n-----商品登録リスト終了-----\n")
+        
+        return(f"￥{self.sum:,}")
+
+    # 合計金額を表示
+    def view_sum(self):
+        self.sum = 0
+        for key in self.item_order_list.keys():
+            for m in self.item_master:
+                if key == m.item_code:
+                    value = self.item_order_list[key]
+                    self.sum += m.price * int(value)        
+        return(f"￥{self.sum:,}")
 
     # 課題6 預り金額を入力し、お釣りを計算する
     def payment(self):

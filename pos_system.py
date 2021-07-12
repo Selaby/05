@@ -51,20 +51,28 @@ class Order:
     # 買い物カゴの情報を表示
     def view_cart(self):
         self.sum = 0
-        self.write_receipt("-----商品登録リスト-----")
+        cart = ""
+        # self.write_receipt("-----商品登録リスト-----")
+
         for key in self.item_order_list.keys():
             for m in self.item_master:
                 if key == m.item_code:
                     value = self.item_order_list[key]
                     self.sum += m.price * int(value)
-                    self.write_receipt(f"商品コード:{key}")
-                    self.write_receipt(f"商品名:{m.item_name}")
-                    self.write_receipt(f"価格:{m.price:,}")
-                    self.write_receipt(f"個数:{value:,}")
-                    self.write_receipt(f"小計:{m.price * int(value):,}\n")
-        self.write_receipt(f"合計:{self.sum:,}\n-----商品登録リスト終了-----\n")
-        
-        return(f"￥{self.sum:,}")
+                    # self.write_receipt(f"商品コード:{key}")
+                    # self.write_receipt(f"商品名:{m.item_name}")
+                    # self.write_receipt(f"価格:{m.price:,}")
+                    # self.write_receipt(f"個数:{value:,}")
+                    # self.write_receipt(f"小計:{m.price * int(value):,}\n")
+
+                    cart += f"商品コード:{key}\n"
+                    cart += f"商品名:{m.item_name}\n"
+                    cart += f"価格:{m.price:,}\n"
+                    cart += f"個数:{value:,}\n"
+                    cart += f"小計:{m.price * int(value):,}\n\n"
+        # self.write_receipt(f"合計:{self.sum:,}\n-----商品登録リスト終了-----\n")
+
+        return cart
 
     # 合計金額を表示
     def view_sum(self):

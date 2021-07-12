@@ -40,13 +40,16 @@ def input_order(order_code:str, order_qty:str):
 
     # item_order_listに当該商品コードが存在しない場合は新たに作成する。ここは文字列型
     if order_code not in order.item_order_list:
-        order.item_order_list[order_code] = int(order_qty)
+        order.item_order_list[order_code] = int(order_qty)                    
     else:
         order.item_order_list[order_code] += int(order_qty)
-    # print(order.item_order_list)
-    text = order.view_sum()
-    eel.view_sum(text)
- 
+
+    cart = order.view_cart()
+    sum = order.view_sum()
+
+    eel.view_cart(cart)
+    eel.view_sum(sum)
+
 if __name__ == "__main__":
     main()
     desktop.start(app_name,end_point,size)

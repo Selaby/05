@@ -24,6 +24,11 @@ register.addEventListener("click", ()=> {
     }
 })
 
+eel.expose(view_cart)
+function view_cart(text) {
+    cart.value = text;
+}
+
 eel.expose(view_sum)
 function view_sum(text) {
     sum.value = text;

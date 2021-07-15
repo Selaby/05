@@ -1,7 +1,7 @@
 import datetime
 import pandas as pd
 
-# ITEM_MASTER_CSV_PATH="./master.csv" # カレントディレクトリの状態に要注意 ずれているとFileNotFoundErrorが出る
+ITEM_MASTER_CSV_PATH="./master.csv" # カレントディレクトリの状態に要注意 ずれているとFileNotFoundErrorが出る
 RECEIPT_FOLDER="./receipt"
 
 ### 商品クラス
@@ -31,22 +31,6 @@ class Order:
         # print(text)
         with open(RECEIPT_FOLDER + "\\" + self.receipt_name, mode="a", encoding="utf-8_sig") as f:
             f.write(text+"\n")
-
-    # view.pyに引越して改変
-    # def input_order(self):
-    #     while True:
-    #         order_code = input("商品コードを入力してください　登録を完了する場合は999を入力してください >> ")
-    #         if int(order_code) != 999: # ここは整数型
-    #             # 課題4 個数も登録する
-    #             if str(order_code) not in self.item_order_list: # item_order_listに当該商品コードが存在しない場合は新たに作成する。ここは文字列型
-    #                 order_qty = input("個数を入力してください >> ")
-    #                 self.item_order_list[order_code] = int(order_qty)
-    #             else:
-    #                 order_qty = input("個数を入力してください >> ")
-    #                 self.item_order_list[order_code] += int(order_qty)
-    #         else:
-    #             print("商品登録を終了します\n")
-    #             break
 
     # 買い物カゴの情報を表示
     def view_cart(self):
@@ -96,9 +80,9 @@ class Order:
                 self.write_receipt(f"{int(deposit):,}円お預かりいたします。\n\n【 残 高 不 足 】\nお支払いが不足しております。\nあと{abs(change):,}円足りません。\n")
 
 # 課題3 csvから商品マスタを登録する
-def register_by_csv(csv_path):
+def register_by_csv(ITEM_MASTER_CSV_PATH):
     item_master=[]
-    item_master_df = pd.read_csv(csv_path, encoding="utf-8", dtype={"item_code":object}) # CSVでは先頭の0が削除されるためこれを保持するための設定
+    item_master_df = pd.read_csv(ITEM_MASTER_CSV_PATH, encoding="utf-8", dtype={"item_code":object}) # CSVでは先頭の0が削除されるためこれを保持するための設定
     for item_code,item_name,price in zip(item_master_df["item_code"],item_master_df["item_name"],item_master_df["price"]):
         item_master.append(Item(item_code,item_name,price))
     return item_master

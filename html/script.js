@@ -20,3 +20,7 @@ eel.expose(alertJs)
 function alertJs(text){
     alert(text)
 }
+
+settle.addEventListener("click", ()=> {
+    eel.settle(deposit.value);
+})

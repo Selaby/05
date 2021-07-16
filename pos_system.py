@@ -69,15 +69,9 @@ class Order:
         return(f"￥{self.sum:,}")
 
     # 課題6 預り金額を入力し、お釣りを計算する
-    def payment(self):
-        while True:
-            deposit = input("お預かり金額を入力してください >> ")
-            change = int(deposit) - self.sum
-            if change >= 0:
-                self.write_receipt(f"{int(deposit):,}円お預かりいたします。\nお釣りは{change:,}円です。\nご利用ありがとうございました。")
-                break
-            else:
-                self.write_receipt(f"{int(deposit):,}円お預かりいたします。\n\n【 残 高 不 足 】\nお支払いが不足しております。\nあと{abs(change):,}円足りません。\n")
+    def payment(self, deposit):
+        change = int(deposit) - self.sum
+        return change
 
 # 課題3 csvから商品マスタを登録する
 def register_by_csv(ITEM_MASTER_CSV_PATH):

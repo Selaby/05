@@ -43,6 +43,11 @@ def input_order(order_code:str, order_qty:str):
     eel.view_cart(cart)
     eel.view_sum(sum)
 
+@eel.expose
+def settle(deposit:str):
+    change = order.payment(deposit)
+    eel.alertJs(f"お釣りは{change}円です")
+
 if __name__ == "__main__":
     main()
     desktop.start(app_name,end_point,size)

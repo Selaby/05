@@ -17,10 +17,17 @@ function view_sum(text) {
 }
 
 eel.expose(alertJs)
-function alertJs(text){
+function alertJs(text) {
     alert(text)
 }
 
 settle.addEventListener("click", ()=> {
     eel.settle(deposit.value);
 })
+
+eel.expose(clear_text)
+function clear_text() {
+    order_code.value = "",
+    order_qty.value = "",
+    deposit.value = "";
+}

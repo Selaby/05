@@ -37,6 +37,11 @@ def input_order(order_code:str, order_qty:str):
     else:
         order.item_order_list[order_code] += int(order_qty)
 
+    refresh()
+
+# 買い物カゴと合計金額を更新
+@eel.expose
+def refresh():
     cart = order.view_cart()
     sum = order.view_sum()
 
@@ -46,7 +51,15 @@ def input_order(order_code:str, order_qty:str):
 @eel.expose
 def settle(deposit:str):
     change = order.payment(deposit)
-    eel.alertJs(f"お釣りは{change}円です")
+    if change >= 0:
+        message = f"お釣りは{change}円です。\nご利用ありがとうございました。"
+        # この行でレシート出力の処理をする
+        order.__init__(item_master)
+        refresh()
+        eel.clear_text()
+    else:
+        message = f"【 残 高 不 足 】\nお支払いが不足しております。\nあと{abs(change):,}円足りません。"
+    eel.alertJs(message)
 
 if __name__ == "__main__":
     main()

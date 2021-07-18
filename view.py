@@ -42,6 +42,7 @@ def input_order(order_code:str, order_qty:str):
 # 買い物カゴと合計金額を更新
 @eel.expose
 def refresh():
+    global cart, sum
     cart = order.view_cart()
     sum = order.view_sum()
 
@@ -53,7 +54,10 @@ def settle(deposit:str):
     change = order.payment(deposit)
     if change >= 0:
         message = f"お釣りは{change}円です。\nご利用ありがとうございました。"
-        # この行でレシート出力の処理をする
+        order.write_receipt(cart)
+        order.write_receipt(f"合計金額：{sum}")
+        order.write_receipt(f"お預り金額：￥{int(deposit):,}") # depositはGUIからstr型で入力されているので要変換
+        order.write_receipt(f"お釣り：￥{change:,}")
         order.__init__(item_master)
         refresh()
         eel.clear_text()

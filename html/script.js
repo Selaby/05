@@ -1,4 +1,12 @@
-register.addEventListener("click", ()=> {
+register_employee.addEventListener("click", ()=> {
+    if (employee_code.value !== "") {
+        eel.input_employee(employee_code.value);
+    } else {
+        alert("従業員コードの入力は必須です");
+    }
+})
+
+register_item.addEventListener("click", ()=> {
     if (order_code.value !== "" && order_qty.value !== "") {
         eel.input_order(order_code.value, order_qty.value);
     } else {

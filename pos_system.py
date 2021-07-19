@@ -1,15 +1,16 @@
 import datetime
 import pandas as pd
 
-ITEM_MASTER_CSV_PATH="./master.csv" # カレントディレクトリの状態に要注意 ずれているとFileNotFoundErrorが出る
+EMPLOYEE_MASTER_CSV_PATH="./employee_master.csv" # カレントディレクトリの状態に要注意 ずれているとFileNotFoundErrorが出る
+ITEM_MASTER_CSV_PATH="./item_master.csv" # カレントディレクトリの状態に要注意 ずれているとFileNotFoundErrorが出る
 RECEIPT_FOLDER="./receipt"
 
 ### 商品クラス
 class Item:
     def __init__(self,item_code,item_name,price):
-        self.item_code=item_code
-        self.item_name=item_name
-        self.price=price
+        self.item_code = item_code
+        self.item_name = item_name
+        self.price = price
 
     def get_price(self):
         return self.price
@@ -74,8 +75,8 @@ class Order:
         return change
 
 # 課題3 csvから商品マスタを登録する
-def register_by_csv(ITEM_MASTER_CSV_PATH):
-    item_master=[]
+def register_item_by_csv(ITEM_MASTER_CSV_PATH):
+    item_master = []
     item_master_df = pd.read_csv(ITEM_MASTER_CSV_PATH, encoding="utf-8", dtype={"item_code":object}) # CSVでは先頭の0が削除されるためこれを保持するための設定
     for item_code,item_name,price in zip(item_master_df["item_code"],item_master_df["item_name"],item_master_df["price"]):
         item_master.append(Item(item_code,item_name,price))

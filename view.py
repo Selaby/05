@@ -9,7 +9,7 @@ size=(700,600)
 
 ### メイン処理
 
-item_master = pos_system.register_by_csv(pos_system.ITEM_MASTER_CSV_PATH)
+item_master = pos_system.register_item_by_csv(pos_system.ITEM_MASTER_CSV_PATH)
 order = pos_system.Order(item_master)
 
 def main():
@@ -19,13 +19,26 @@ def main():
     eel.start('index.html')
 
 @eel.expose
+def input_employee(employee_code:str):
+    # employee_master.csvをDataFrameに変換後、employee_code列を抜き出してSeriesに変換し、リストに変換
+    master_verify_df = pd.read_csv(pos_system.EMPLOYEE_MASTER_CSV_PATH, encoding="utf-8", dtype={"employee_code":object}) # CSVでは先頭の0が削除されるためこれを保持するための設定
+    employee_code_list = master_verify_df['employee_code'].to_list()
+    # employee_codeがマスターに含まれていなければエラーを返す
+    if employee_code not in employee_code_list:
+        eel.alertJs(f"従業員コード 『 {employee_code} 』 は従業員マスターに登録されていません")
+    # マスターに存在する場合は登録する
+    else:
+        pic_code = employee_code
+        eel.alertJs(f"従業員コード 『 {pic_code} 』 を登録しました")
+
+@eel.expose
 def input_order(order_code:str, order_qty:str):
 
     # グローバル変数の宣言が必要
     global order
 
     if order_code not in order.item_order_list:
-        # master.csvをDataFrameに変換後、item_code列を抜き出してSeriesに変換し、リストに変換
+        # item_master.csvをDataFrameに変換後、item_code列を抜き出してSeriesに変換し、リストに変換
         master_verify_df = pd.read_csv(pos_system.ITEM_MASTER_CSV_PATH, encoding="utf-8", dtype={"item_code":object}) # CSVでは先頭の0が削除されるためこれを保持するための設定
         item_code_list = master_verify_df['item_code'].to_list()
         # order_codeがマスターに含まれていなければエラーを返す

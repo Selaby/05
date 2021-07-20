@@ -1,47 +1,49 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  <title>POS-SYSTEM</title>
+	<title>POS-SYSTEM</title>
 </head>
 <body>
-  <div class="container-fluid">
-    <h1>POS-SYSTEM</h1>
+	<div class="container-fluid">
+    	<nav class="navbar navbar-light" style="background-color:#4B0082">
+      		<a href="#" class="navbar-brand" style="color:white"><b>POSレジシステム</b></a>
+		</nav>
 
-    <p>従業員コードを入力してください。</p>
-    <input type="text" id="employee_code" placeholder="従業員コードを入力">
-    <input type="submit" id="register_employee" value="登録">
+			<p>従業員コードを入力してください。</p>
+			<input type="text" id="employee_code" placeholder="従業員コードを入力">
+			<input type="submit" id="login" value="ログイン">
+			<BR><BR>
 
-    <BR><BR>
+			<div id="control_panel">
+				<p>商品コードを入力してください。</p>
+				<input type="text" id="order_code" placeholder="商品コードを入力">
 
-    <p>商品コードを入力してください。</p>
-    <input type="text" id="order_code" placeholder="商品コードを入力">
+				<BR><BR>
 
-    <BR><BR>
+				<p>個数を入力してください。</p>
+				<input type="text" id="order_qty" placeholder="個数を入力">
+				<input type="submit" id="register_item" value="登録">
 
-    <p>個数を入力してください。</p>
-    <input type="text" id="order_qty" placeholder="個数を入力">
-    <input type="submit" id="register_item" value="登録">
+				<BR><BR>
 
-    <BR><BR>
+				<p>買い物カゴ</p>
+				<textarea id="cart" class="result_area" cols="50" rows="24"></textarea>
 
-    <p>買い物カゴ</p>
-    <textarea id="cart" class="result_area" cols="50" rows="24"></textarea>
+				<p>合計金額</p>
+				<textarea id="sum" class="sum_area" cols="50" rows="1"></textarea>
 
-    <p>合計金額</p>
-    <textarea id="sum" class="sum_area" cols="50" rows="1"></textarea>
-
-    <p>お預り金額</p>
-    <input type="text" id="deposit" placeholder="お預り金額を入力">
-    <input type="submit" id="settle" value="支払">
-
-  </div>
+				<p>お預り金額</p>
+				<input type="text" id="deposit" placeholder="お預り金額を入力">
+				<input type="submit" id="settle" value="支払">
+			</div>
+	</div>
 
 <script type="text/javascript" src="/eel.js"></script>
 <script type="text/javascript" src="script.js"></script>

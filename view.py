@@ -26,10 +26,11 @@ def input_employee(employee_code:str):
     # employee_codeがマスターに含まれていなければエラーを返す
     if employee_code not in employee_code_list:
         eel.alertJs(f"従業員コード 『 {employee_code} 』 は従業員マスターに登録されていません")
-    # マスターに存在する場合は登録する
+    # マスターに存在する場合はログインする
     else:
         pic_code = employee_code
-        eel.alertJs(f"従業員コード 『 {pic_code} 』 を登録しました")
+        eel.alertlogin(f"従業員コード 『 {pic_code} 』 でログインしました")
+        return pic_code
 
 @eel.expose
 def input_order(order_code:str, order_qty:str):

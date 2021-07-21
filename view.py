@@ -1,5 +1,6 @@
 import eel
 import desktop
+import csv
 import pandas as pd
 import pos_system
 
@@ -20,8 +21,21 @@ def main():
 
 @eel.expose
 def input_employee(employee_code:str):
+    # employee_dict = {}
+    # with open('employee_master.csv', encoding="utf-8", newline="") as f:
+    #     reader = csv.DictReader(f)
+        # header = next(reader)
+        # print(header)
+        # for row in reader:
+        #     print(row)
+    #         employee_code = row[0]
+    #         employee_name = row[1]
+    # for key, value in employee_dict.items():
+    #     print(f'{key}: {value}')  
+
     # employee_master.csvをDataFrameに変換後、employee_code列を抜き出してSeriesに変換し、リストに変換
-    master_verify_df = pd.read_csv(pos_system.EMPLOYEE_MASTER_CSV_PATH, encoding="utf-8", dtype={"employee_code":object}) # CSVでは先頭の0が削除されるためこれを保持するための設定
+    master_verify_df = pd.read_csv(pos_system.EMPLOYEE_MASTER_CSV_PATH, encoding="utf-8")
+    # master_verify_df = pd.read_csv(pos_system.EMPLOYEE_MASTER_CSV_PATH, encoding="utf-8", index_col=0)
     employee_code_list = master_verify_df['employee_code'].to_list()
     # employee_codeがマスターに含まれていなければエラーを返す
     if employee_code not in employee_code_list:
@@ -30,7 +44,10 @@ def input_employee(employee_code:str):
     else:
         pic_code = employee_code
         eel.alertlogin(f"従業員コード 『 {pic_code} 』 でログインしました")
-        return pic_code
+        # pic_name = master_verify_df.loc[master_verify_df["employee_code"] == pic_code, "employee_name"]
+        pic_name = master_verify_df.loc[master_verify_df["employee_code"] == pic_code, "employee_name"]
+        pic_name_modified = pic_name.iloc[-1]
+        eel.view_pic(f"担当者コード：{pic_code}\n担当者：{pic_name_modified}")
 
 @eel.expose
 def input_order(order_code:str, order_qty:str):

@@ -2,11 +2,13 @@ undisplay()
 // ツールを表示する関数
 eel.expose(display)
 function display(){
+    login_panel.style.display = "none";
     control_panel.style.display = "block";
 }
 // ツールを非表示にする関数
 eel.expose(undisplay)
 function undisplay(){
+    login_panel.style.display = "block";
     control_panel.style.display = "none";
 }
 
@@ -24,6 +26,10 @@ login.addEventListener("click", ()=> {
     }
 })
 
+// logout.addEventListener("click", ()=> {
+//     undisplay();
+// }
+
 register_item.addEventListener("click", ()=> {
     if (order_code.value !== "" && order_qty.value !== "") {
         eel.input_order(order_code.value, order_qty.value);
@@ -31,6 +37,11 @@ register_item.addEventListener("click", ()=> {
         alert("商品コードおよび個数の入力は必須です");
     }
 })
+
+eel.expose(view_pic)
+function view_pic(text) {
+    pic.value = text;
+}
 
 eel.expose(view_cart)
 function view_cart(text) {

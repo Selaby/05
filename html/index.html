@@ -15,13 +15,20 @@
     	<nav class="navbar navbar-light" style="background-color:#4B0082">
       		<a href="#" class="navbar-brand" style="color:white"><b>POSレジシステム</b></a>
 		</nav>
-
-			<p>従業員コードを入力してください。</p>
-			<input type="text" id="employee_code" placeholder="従業員コードを入力">
-			<input type="submit" id="login" value="ログイン">
-			<BR><BR>
+			<div id="login_panel">
+				<BR>
+				<p>従業員コードを入力してください。</p>
+				<input type="text" id="employee_code" placeholder="従業員コードを入力">
+				<input type="submit" id="login" value="ログイン">
+				<BR><BR>
+			</div>
 
 			<div id="control_panel">
+				<BR>
+				<textarea id="pic" cols="22" rows="2" readonly></textarea>
+				<input type="submit" id="logout" value="ログアウト">
+				<BR><BR>
+
 				<p>商品コードを入力してください。</p>
 				<input type="text" id="order_code" placeholder="商品コードを入力">
 
@@ -34,14 +41,15 @@
 				<BR><BR>
 
 				<p>買い物カゴ</p>
-				<textarea id="cart" class="result_area" cols="50" rows="24"></textarea>
+				<textarea id="cart" cols="50" rows="24" readonly></textarea>
 
 				<p>合計金額</p>
-				<textarea id="sum" class="sum_area" cols="50" rows="1"></textarea>
+				<textarea id="sum" cols="50" rows="1" readonly></textarea>
 
 				<p>お預り金額</p>
 				<input type="text" id="deposit" placeholder="お預り金額を入力">
 				<input type="submit" id="settle" value="支払">
+				<BR><BR>
 			</div>
 	</div>
 

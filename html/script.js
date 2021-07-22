@@ -26,9 +26,9 @@ login.addEventListener("click", ()=> {
     }
 })
 
-// logout.addEventListener("click", ()=> {
-//     undisplay();
-// }
+logout.addEventListener("click", ()=> {
+    undisplay();
+})
 
 register_item.addEventListener("click", ()=> {
     if (order_code.value !== "" && order_qty.value !== "") {

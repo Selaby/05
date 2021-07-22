@@ -21,17 +21,7 @@ def main():
 
 @eel.expose
 def input_employee(employee_code:str):
-    # employee_dict = {}
-    # with open('employee_master.csv', encoding="utf-8", newline="") as f:
-    #     reader = csv.DictReader(f)
-        # header = next(reader)
-        # print(header)
-        # for row in reader:
-        #     print(row)
-    #         employee_code = row[0]
-    #         employee_name = row[1]
-    # for key, value in employee_dict.items():
-    #     print(f'{key}: {value}')  
+    global pic_code, pic_name_modified
 
     # employee_master.csvをDataFrameに変換後、employee_code列を抜き出してSeriesに変換し、リストに変換
     master_verify_df = pd.read_csv(pos_system.EMPLOYEE_MASTER_CSV_PATH, encoding="utf-8")
@@ -85,6 +75,7 @@ def settle(deposit:str):
     change = order.payment(deposit)
     if change >= 0:
         message = f"お釣りは{change}円です。\nご利用ありがとうございました。"
+        order.write_receipt(f"担当者コード：{pic_code}　担当者名：{pic_name_modified}\n")
         order.write_receipt(cart)
         order.write_receipt(f"合計金額：{sum}")
         order.write_receipt(f"お預り金額：￥{int(deposit):,}") # depositはGUIからstr型で入力されているので要変換

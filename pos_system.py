@@ -1,3 +1,4 @@
+import os
 import datetime
 import pandas as pd
 
@@ -30,7 +31,7 @@ class Order:
     # 課題7 日付時刻をファイル名としたテキストファイルに出力し、Print関数も同時に動作させる
     def write_receipt(self,text):
         # print(text)
-        with open(RECEIPT_FOLDER + "\\" + self.receipt_name, mode="a", encoding="utf-8_sig") as f:
+        with open(os.path.join(RECEIPT_FOLDER, self.receipt_name), mode="a", encoding="utf-8_sig") as f:
             f.write(text+"\n")
 
     # 買い物カゴの情報を表示
@@ -74,9 +75,12 @@ class Order:
         change = int(deposit) - self.sum
         return change
 
-# 課題3 csvから商品マスタを登録する
+# 課題3 csvから商品マスターを登録する
 def register_item_by_csv(ITEM_MASTER_CSV_PATH):
     item_master = []
+    # マスターが存在しない場合はエラーを返す
+    if not os.path.exists(ITEM_MASTER_CSV_PATH):
+        return None
     item_master_df = pd.read_csv(ITEM_MASTER_CSV_PATH, encoding="utf-8", dtype={"item_code":object}) # CSVでは先頭の0が削除されるためこれを保持するための設定
     for item_code,item_name,price in zip(item_master_df["item_code"],item_master_df["item_name"],item_master_df["price"]):
         item_master.append(Item(item_code,item_name,price))

@@ -14,7 +14,7 @@ function undisplay(){
 
 login.addEventListener("click", ()=> {
     if (employee_code.value !== "") {
-        eel.input_employee(employee_code.value);
+        eel.input_pic(employee_code.value);
         // 従業員マスターに登録されていない場合は実行されない
         eel.expose(alertlogin)
         function alertlogin(text) {

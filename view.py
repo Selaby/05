@@ -1,6 +1,6 @@
+import os
 import eel
 import desktop
-import csv
 import pandas as pd
 import pos_system
 
@@ -10,7 +10,11 @@ size=(700,600)
 
 ### メイン処理
 
+if not os.path.exists(pos_system.EMPLOYEE_MASTER_CSV_PATH):
+    eel.alertJs("従業員マスターが存在しません。終了します")
 item_master = pos_system.register_item_by_csv(pos_system.ITEM_MASTER_CSV_PATH)
+if not item_master:
+    eel.alertJs("商品マスターが存在しません。終了します")
 order = pos_system.Order(item_master)
 
 def main():
@@ -20,22 +24,21 @@ def main():
     eel.start('index.html')
 
 @eel.expose
-def input_employee(employee_code:str):
+def input_pic(employee_code:str):
     global pic_code, pic_name_modified
 
-    # employee_master.csvをDataFrameに変換後、employee_code列を抜き出してSeriesに変換し、リストに変換
-    master_verify_df = pd.read_csv(pos_system.EMPLOYEE_MASTER_CSV_PATH, encoding="utf-8")
-    # master_verify_df = pd.read_csv(pos_system.EMPLOYEE_MASTER_CSV_PATH, encoding="utf-8", index_col=0)
-    employee_code_list = master_verify_df['employee_code'].to_list()
+    # employee_master.csvをDataFrameに変換、employee_code列を抜き出してSeriesに変換後、リストに変換
+    employee_master_df = pd.read_csv(pos_system.EMPLOYEE_MASTER_CSV_PATH, encoding="utf-8")
+    employee_master_list = employee_master_df['employee_code'].to_list()
     # employee_codeがマスターに含まれていなければエラーを返す
-    if employee_code not in employee_code_list:
+    if employee_code not in employee_master_list:
         eel.alertJs(f"従業員コード 『 {employee_code} 』 は従業員マスターに登録されていません")
     # マスターに存在する場合はログインする
     else:
+        employee_master_df = pd.read_csv(pos_system.EMPLOYEE_MASTER_CSV_PATH, encoding="utf-8")
         pic_code = employee_code
         eel.alertlogin(f"従業員コード 『 {pic_code} 』 でログインしました")
-        # pic_name = master_verify_df.loc[master_verify_df["employee_code"] == pic_code, "employee_name"]
-        pic_name = master_verify_df.loc[master_verify_df["employee_code"] == pic_code, "employee_name"]
+        pic_name = employee_master_df.loc[employee_master_df["employee_code"] == pic_code, "employee_name"]
         pic_name_modified = pic_name.iloc[-1]
         eel.view_pic(f"担当者コード：{pic_code}\n担当者：{pic_name_modified}")
 

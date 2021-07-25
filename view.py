@@ -75,19 +75,22 @@ def refresh():
 
 @eel.expose
 def settle(deposit:str):
-    change = order.payment(deposit)
-    if change >= 0:
-        message = f"お釣りは{change}円です。\nご利用ありがとうございました。"
-        order.write_receipt(f"担当者コード：{pic_code}　担当者名：{pic_name_modified}\n")
-        order.write_receipt(cart)
-        order.write_receipt(f"合計金額：{sum}")
-        order.write_receipt(f"お預り金額：￥{int(deposit):,}") # depositはGUIからstr型で入力されているので要変換
-        order.write_receipt(f"お釣り：￥{change:,}")
-        order.__init__(item_master)
-        refresh()
-        eel.clear_text()
+    if not deposit:
+        message = "お支払金額を入力してください"
     else:
-        message = f"【 残 高 不 足 】\nお支払いが不足しております。\nあと{abs(change):,}円足りません。"
+        change = order.payment(deposit)
+        if change >= 0:
+            message = f"お釣りは{change}円です。\nご利用ありがとうございました。"
+            order.write_receipt(f"担当者コード：{pic_code}　担当者名：{pic_name_modified}\n")
+            order.write_receipt(cart)
+            order.write_receipt(f"合計金額：{sum}")
+            order.write_receipt(f"お預り金額：￥{int(deposit):,}") # depositはGUIからstr型で入力されているので要変換
+            order.write_receipt(f"お釣り：￥{change:,}")
+            order.__init__(item_master)
+            refresh()
+            eel.clear_text()
+        else:
+            message = f"【 残 高 不 足 】\nお支払いが不足しております。\nあと{abs(change):,}円足りません。"
     eel.alertJs(message)
 
 if __name__ == "__main__":
